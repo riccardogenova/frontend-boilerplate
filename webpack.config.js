@@ -2,6 +2,7 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
@@ -11,7 +12,7 @@ module.exports = {
     filename: 'js/bundle.js',
   },
   resolve: {
-    extensions: ['.ts', '.js'], // Aggiungi '.ts' per gestire i file TypeScript
+    extensions: ['.ts', '.js', '.css'], // Aggiungi '.ts' per gestire i file TypeScript
   },
   module: {
     rules: [
@@ -20,6 +21,10 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'], // Utilizza MiniCssExtractPlugin e css-loader per i file CSS
+      },
       // Puoi aggiungere altri loader qui per CSS, SASS, ecc.
     ],
   },
@@ -27,6 +32,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'css/general.css', // I file CSS verranno generati nella cartella 'css' dentro 'build'
     }),
   ],
   devtool: 'inline-source-map',
