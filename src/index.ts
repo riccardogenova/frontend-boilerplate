@@ -1,12 +1,8 @@
 /** @format */
 
-import { render } from './utilities/render';
 import './css/general.css';
 
-function Example() {
-  return '<div>Welcome to the app!</div>';
-}
-
 window.onload = () => {
-  render('root', Example);
+  const root = document.getElementById('root');
+  if (root) root.innerHTML = `<h1>Let's start!</h1>`;
 };
